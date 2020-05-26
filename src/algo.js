@@ -37,7 +37,7 @@
  *
  *      And these matrices... look like they have to be created with nested for loops.
  *          X Is there anything better?
- *      So If I have a matrix, how do I pin point a cell... grid...map...waypoints, [index][index]
+ *      So If I have a matrix, how do I pin point a cell... grid...map...waypoints, [index][index] ✔ this works.
  *
  * How will I keep count of how many living neighbors a cell has?
  *      Should I have a counter for each cell?
@@ -72,6 +72,7 @@
  * Returns new array of the next generation.
  */
 function calc_next_generation(prev_grid) {
+    // prev_grid[row][col]
     // create new grid_array to hold copy of prev_grid
 
     // determine the number of neighbours for each cell
@@ -86,6 +87,7 @@ function calc_next_generation(prev_grid) {
 
 /**
  * Creates a matrix with the number for rows and columns inserted.
+ * Default is all spaces are false.
  * @param {int} rows 
  * @param {int} cols
  * returns {array} a matrix grid to be used 
@@ -94,4 +96,15 @@ function create_grid(rows, cols) {
     return Array(rows).fill().map(() => Array(cols).fill(false))
 }
 
-export {calc_next_generation, create_grid}
+/**
+ * Returns the amount of live neighbours a given cell has.
+ * @param {array} cell_cordinates
+ */
+function calc_neighbours(cell_cordinates){
+    console.log(cell_cordinates)
+    // what are the possible neighbours?
+    // what am I going to do about the edge lines?
+    // 
+}
+
+export {calc_next_generation, create_grid, calc_neighbours}
