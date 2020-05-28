@@ -1,0 +1,22 @@
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+}
+h1 {
+    text-align: center;
+}
+.grid {
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(25, 15px);
+}
+.cell {
+  width: 15px;
+  height: 15px;
+  border: solid 1px darkslategray;
+}
+.cell.alive {
+  background: lime;
+}
