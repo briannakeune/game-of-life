@@ -1,3 +1,5 @@
+/* This is where I'm just keeping what I orginally planned out, for execution please look in the helpers folder. */
+
 // Any live cell with fewer than two live neighbours dies, as if by underpopulation.
 // Any live cell with two or three live neighbours lives on to the next generation.
 // Any live cell with more than three live neighbours dies, as if by overpopulation.
@@ -64,68 +66,3 @@
  * then create an interface,
  * make the algorithm work, then improve it
  */
-
-/**
- * Calculates the new state of cells based on the Game of Life rules
- * @param {array} prev_grid
- * Returns new array of the next generation.
- */
-function calc_next_generation(prev_grid) {
-  // prev_grid[row][col]
-  // create new grid_array to hold copy of prev_grid
-  const next_gen = [];
-
-  // grab each cell
-  prev_grid.forEach((arr, row_index) => {
-    arr.forEach((val, col_index) => {
-      // determine the number of neighbours for each cell
-      let neighbour_amount = calc_neighbours(row_index, col_index);
-      // if a live cell has less than two live neighbours, it dies +
-      // if a live cell has more than three live neighbours, it dies
-      if ((val === true && neighbour_amount > 2) || (val === true && neighbour_amount > 3)) {
-        val = false;
-      }
-      // if a dead cell has exactly three neighbours, it comes back alive
-      if (val === false && neighbour_amount === 3){
-          val = true
-      }
-      // if it has either 2 or 3 neighbours the state is unchanged ✔
-
-      // how do I get all of this into the next_gen array?
-    });
-  });
-  // return mutated new grid_array -> recurse through all cells?
-  return next_gen;
-}
-
-/**
- * Creates a matrix with the number for rows and columns inserted.
- * Default is all spaces are false.
- * @param {int} rows
- * @param {int} cols
- * returns {array} a matrix grid to be used
- */
-function create_grid(rows, cols) {
-  return Array(rows)
-    .fill()
-    .map(() => Array(cols).fill(false));
-}
-
-/**
- * Returns the amount of live neighbours a given cell has.
- * @param {int} lat
- * @param {int} lon
- */
-function calc_neighbours(grid, lat, lon) {
-    console.log(`grid: ${grid}\nlat: ${lat}\nlon: ${lon}`)
-    console.log(`GRID COORDS: ${grid[lat][lon]}`)
-  // might update lat,lon to row, and col again.
-  let neighbour_count = 0
-  if (grid[lat -1][lon -1] == true) neighbour_count ++
-  // what are the possible neighbours?
-  // what am I going to do about the edge lines?
-  // given coordinates... how do I see which neighbours are alive?
-  return neighbour_count
-}
-
-export { calc_next_generation, create_grid, calc_neighbours };
