@@ -1,17 +1,24 @@
 .App {
+  margin: auto;
+  max-width: 80%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-content: center;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
 h1 {
-    text-align: center;
+  text-align: center;
 }
+
 .grid {
-  margin: auto;
+  justify-content: center;
   display: grid;
   grid-template-columns: repeat(25, 15px);
+  grid-template-rows: repeat(25) 15px;
 }
+
 .cell {
   width: 15px;
   height: 15px;
@@ -19,4 +26,27 @@ h1 {
 }
 .cell.alive {
   background: lime;
+}
+
+.commands {
+  margin: 18px auto;
+}
+button {
+  margin: 0px 5px;
+  border: none;
+  border-radius: 20px;
+  padding: 10px;
+  background: dodgerblue;
+  color: whitesmoke;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+form {
+  margin: 10px auto;
+}
+p {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 582px;
+  margin-top: -0px;
 }
