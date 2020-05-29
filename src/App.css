@@ -8,8 +8,11 @@
   font-size: 1.1rem;
   font-weight: bold;
 }
-h1 {
+h1, h3 {
   text-align: center;
+}
+.rules {
+margin: auto;
 }
 
 .grid {
