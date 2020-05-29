@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Grid({ grid, setGrid }) {
+export default function Grid({ grid, setGrid, gridVal }) {
   return (
     <div className="grid">
       {grid.map((arr, row_index) =>
