@@ -3,41 +3,98 @@ import "./App.css";
 
 import { create_grid, calc_next_gen } from "./helpers";
 import Grid from "./components/Grid.js";
-import Commands from "./components/Commands.js";
-
-/**
- * Todo:
- * use setRows, and setCols for users to update
- * how large the grid is.
- */
 function App() {
-  const [rows, setRows] = useState(25);
-  const [cols, setCols] = useState(25);
-  const [displayGrid, setDisplayGrid] = useState(create_grid(rows, cols));
+  const [gridValue, setGridValue] = useState({ val: 25 });
+  const [displayGrid, setDisplayGrid] = useState(
+    create_grid(gridValue.val, gridValue.val)
+  );
   const [running, setRunning] = useState(false);
   let [genCounter, setGenCounter] = useState(0);
-
   let gridA = displayGrid;
-  let gridB = [];
+  let gridB = displayGrid;
+  const speed = [1000, 500, 200];
+  const [amount, setAmount] = useState(0);
 
   useEffect(() => {
     if (!running) return;
     setTimeout(() => {
       if (genCounter % 2 === 0) {
+        console.log("gridA");
+        setGenCounter(genCounter + 1);
         setDisplayGrid(calc_next_gen(gridA, gridB));
       } else if (genCounter % 2 !== 0) {
+        console.log("gridB");
+        setGenCounter(genCounter + 1);
         setDisplayGrid(calc_next_gen(gridB, gridA));
       }
-      setGenCounter(genCounter++);
-    }, 2000);
-  }, [running, gridA, gridB, genCounter]);
+    }, speed[amount]);
+  }, [
+    running,
+    displayGrid,
+    genCounter,
+    gridA,
+    gridB,
+    speed,
+    amount,
+    gridValue.val,
+  ]);
 
+  function start() {
+    setRunning(!running);
+  }
+
+  function next() {
+    if (genCounter % 2 === 0) {
+      setDisplayGrid(calc_next_gen(gridA, gridB));
+    } else if (genCounter % 2 !== 0) {
+      setDisplayGrid(calc_next_gen(gridB, gridA));
+    }
+    setGenCounter(genCounter + 1);
+  }
+
+  function adjustSpeed() {
+    if (amount < 4) return setAmount(amount + 1);
+    setAmount(0);
+  }
+
+  function handleChange(e) {
+    setGridValue({ val: Number(e.target.value) });
+    setDisplayGrid(create_grid(25, 25));
+    setDisplayGrid(create_grid(gridValue.val, gridValue.val));
+  }
+
+  console.log("gridValue: ", gridValue.val);
   return (
     <div className="App">
       <h1>Game of Life</h1>
-      <Grid grid={displayGrid} setGrid={setDisplayGrid} />
-      <Commands running={running} setRunning={setRunning} />
+      <div className="grid-container">
+        <Grid
+          grid={displayGrid}
+          setGrid={setDisplayGrid}
+          gridVal={gridValue.val}
+        />
+      </div>
       <p>Generation: {genCounter}</p>
+      <div className="commands">
+        <button onClick={start}>{running ? "Stop" : "Start"}</button>
+        <button onClick={next}>Next</button>
+        <button onClick={adjustSpeed}>>>Faster</button>
+        <button
+          onClick={() =>
+            setDisplayGrid(create_grid(gridValue.val, gridValue.val))
+          }
+        >
+          Clear
+        </button>
+      </div>
+      <form>
+        <label htmlFor="grid-size">Choose a grid size: </label>
+        <select name="grid-size" onChange={handleChange}>
+          <option value="25">25x25</option>
+          <option value="50">50x50</option>
+          <option value="75">75x75</option>
+        </select>
+      </form>
     </div>
   );
 }
